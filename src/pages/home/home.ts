@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, MenuController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -7,8 +7,12 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public menu: MenuController) {
 
   }
-
+  ionViewDidEnter() {
+    // the root left menu should be disabled on this page
+    this.menu.enable(true);
+    }
+  
 }

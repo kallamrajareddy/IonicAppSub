@@ -1,0 +1,78 @@
+<ion-header>
+    <ion-navbar color="secondary">
+        <!--<ion-buttons start ion-right>-->
+        <button ion-button menuToggle>
+          <ion-icon name="menu" >  Notifications</ion-icon>
+          <ion-title></ion-title>
+        </button>
+
+        <!-- </ion-buttons> -->
+
+        <ion-buttons *ngIf="!auth.getAuthentication()" end>
+            <button ion-button tooltip="logOut" (click)="logOut()">
+      <ion-icon name="log-out" >LogOff</ion-icon>
+    </button>
+        </ion-buttons>
+
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+
+    <ion-card *ngFor="let pack of subStore.getSubList()">
+
+        <ion-card-content>
+            <ion-item>
+                <ion-label>{{pack.label}} </ion-label>
+                <ion-checkbox color="danger" [(ngModel)]="pack.selected" (click)="multiple(pack)"></ion-checkbox>
+            </ion-item>
+            <ion-row no-padding>
+                <ion-col text-wrap>
+                    {{pack.detail}}
+                </ion-col>
+            </ion-row>
+            <ion-row no-padding>
+                <ion-col text-center>
+                    {{pack.dt | date:'fullDate'}}
+                </ion-col>
+            </ion-row>
+            <ion-row no-padding *ngIf="subStore.getMultiCk()">
+                <ion-col>
+                    <button (click)="openStatus(pack)" ion-button small color="blue" icon-start>
+                            <ion-icon name='checkmark-circle-outline'></ion-icon>
+                            aprove
+                          </button>
+                </ion-col>
+                <ion-col text-center>
+                    <button (click)="cancelConfirm(pack)" ion-button small color="danger" icon-start>
+                            <ion-icon name='close-circle'></ion-icon>
+                            decline
+                          </button>
+                </ion-col>
+
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>
+
+<ion-footer *ngIf="!subStore.getMultiCk()">
+    <!--<ion-toolbar>
+        <button ion-button>Upload</button>
+    </ion-toolbar> -->
+
+    <ion-row padding>
+        <ion-col>
+            <button (click)="mulSubSel()" ion-button large color="blue" icon-start>
+                    <ion-icon name='checkmark-circle-outline'></ion-icon>
+                    aprove
+                  </button>
+        </ion-col>
+        <ion-col text-center>
+            <button ion-button large color="danger" icon-start>
+                    <ion-icon name='close-circle'></ion-icon>
+                    decline
+                  </button>
+        </ion-col>
+
+    </ion-row>
+</ion-footer>
